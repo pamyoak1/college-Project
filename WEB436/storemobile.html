@@ -1,0 +1,130 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="ie6 oldie"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Untitled Document</title>
+<link href="boilerplate.css" rel="stylesheet" type="text/css">
+<link href="storemobile.css" rel="stylesheet" type="text/css">
+<!-- 
+To learn more about the conditional comments around the html tags at the top of the file:
+paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+
+Do the following if you're using your customized build of modernizr (http://www.modernizr.com/):
+* insert the link to your js here
+* remove the link below to the html5shiv
+* add the "no-js" class to the html tags at the top
+* you can also remove the link to respond.min.js if you included the MQ Polyfill in your modernizr build 
+-->
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="respond.min.js"></script>
+</head>
+<body>
+<div class="gridContainer clearfix">
+  <div id="banner"><h1>Sugar Sweet Candy</h1> </div>
+  <div id="Navigation"><img src="2000px-Red_pog.svg.png" width="20" height="20" /> <a href="sugarsweet.html">Home</a>  <img src="2000px-Red_pog.svg.png" width="20" height="20" /> <a href="store.html"> Store </a> <img src="2000px-Red_pog.svg.png" width="20" height="20" /> About us <img src="2000px-Red_pog.svg.png" width="20" height="20"/> Contact Us </div>
+  <div id="Body"> 
+  
+  <div class="Widget">
+<h2> Price Slider </h2>
+<form name="form1" method="post" action="">
+<p>
+ <input id="slider" type="range" min="1" max="30" step="1" value="30" onchange="printValue('slider','rangeValue')" />
+ <input id="rangeValue" type="text" size="2"/>
+</p>
+</form>
+</div>
+<div id="favorites" class="widget">
+<h2> Favorites </h2>
+<p> Drag Favorites Here </p>
+<ul id="faves"></ul>
+
+</div>
+
+<p></p>
+
+<p></p>
+<article id="candyall">
+<div id="candy1" class="candy" draggable="true">
+<img src="candy/bacon.jpg" height="129" width="101" /><h3>Chocolate-Covered Bacon <img src="dollar.png" width="25" height="25" /><span class="price"> $10 / 10 Pieces</span></h3></div>
+<p></p>
+<div id="candy8" class="candy" draggable="true">
+<img src="candy/cadbury bar.jpg" height="79" width="175"  /> <h3> Cadbury Bar<img src="dollar.png" width="25" height="25" /><span class="price"> $2.50 / Bar </span></h3></div>
+<p></p>
+<div id="candy2" class="candy" draggable="true">
+<img src="candy/candy corn.jpg" height="118" width="179"  /> <h3> Candy Corn <img src="dollar.png" width="25" height="25" /><span class="price">$3 / 1 Pound</span> </h3></div>
+<p></p>
+<div id="candy3" class="candy" draggable="true">
+<img src="candy/candyapple.jpg" height="154" width="206" /> <h3> Candy Apple <img src="dollar.png" width="25" height="25" /><span class="price">$10 / 5 Apples</span></h3></div>
+<p></p> 
+<div id="candy4" class="candy" draggable="true">
+<img src="candy/caramels.png" height="147" width="199" /> <h3>Hand Made Caramels<img src="dollar.png" width="25" height="25"/><span class="price"> $12 /1 Pound </span></h3></div>
+
+  <p></p>
+  <div id="candy5" class="candy" draggable="true">
+  <img src="candy/fudge.jpg" height="161" width="195"  /><h3>Fudge<img src="dollar.png" width="25" height="25"/><span class="price"> $15 / 10 pieces</span></h3>
+  <p></p></div>
+  <div id="candy6" class="candy" draggable="true">
+  <img src="candy/pralines.jpg" height="168" width="225"  /><h3>Pralines<img src="dollar.png" width="25" height="25"/><span class="price"> $15 / 5 Pieces</span></h3>
+  <p></p></div>
+  <div id="candy7" class="candy" draggable="true">
+  <img src="candy/strawberries.jpg" height="123" width="187"  /> <h3>Chocolate Covered Strawberry<img src="dollar.png" width="25" height="25"/><span class="price"> $20 / 10 Pieces </span></h3></div>
+<p></p>
+</article>
+<script>
+        function printValue(sliderID, textbox) {
+            var x = document.getElementById(textbox);
+            var y = document.getElementById(sliderID);
+            x.value = y.value;
+        }
+
+        window.onload = function() { printValue('slider', 'rangeValue') }
+</script>
+<script>
+	$('#candy1').data({ id:1, price:10 });
+	$('#candy2').data({ id:2, price:3 });
+	$('#candy3').data({ id:3, price:10 });
+	$('#candy4').data({ id:4, price:12 });
+	$('#candy5').data({ id:5, price:15 });
+	$('#candy6').data({ id:6, price:15 });
+	$('#candy7').data({ id:6, price:20 });
+	$('#candy8').data({ id:6, price:2 });
+	
+
+	$(document).ready(function () {
+		var theValue;
+
+		$("#slider").change(function() {
+			theValue = $("#rangeValue").val();
+			filterItems(theValue) ;
+		});
+	});
+
+	function filterItems(priceCriteria)
+	{
+		$.each($('#candyall div'), function(i, item) {
+			$item = $(item); 
+			itemData = $item.data();
+			if(itemData.price <= priceCriteria) 
+			{
+				$item.animate({opacity: 1});
+				itemData.matching = true;
+			}
+			else
+			{
+				$item.animate({opacity: 0.5});
+				itemData.matching = false;
+			}
+		});
+	}
+</script>  </div>
+</div>
+</body>
+</html>
